@@ -20,27 +20,27 @@ function Banner() {
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE, delay: 2.8 } }}
       exit={{ opacity: 0, y: 40, transition: { duration: 0.3 } }}
-      className="tone-dark fixed inset-x-4 bottom-4 z-(--z-nav) max-w-lg rounded-2xl border border-line bg-ink-900/90 p-5 shadow-lift backdrop-blur-xl sm:left-6 sm:right-auto sm:bottom-6 sm:p-7"
+      className="tone-dark fixed inset-x-3 bottom-3 z-(--z-nav) max-w-lg rounded-2xl border border-line bg-ink-900/90 p-4 shadow-lift backdrop-blur-xl sm:left-6 sm:right-auto sm:bottom-6 sm:p-7"
     >
       <div className="flex items-center gap-3">
         <Cookie aria-hidden="true" className="size-5 text-amber" />
-        <h2 className="font-display text-lg font-semibold">This website uses cookies.</h2>
+        <h2 className="font-display text-base font-semibold sm:text-lg">This website uses cookies.</h2>
       </div>
-      <p className="mt-3 text-sm leading-relaxed text-muted">
+      <p className="mt-2.5 text-[0.8125rem] leading-snug text-muted sm:mt-3 sm:text-sm sm:leading-relaxed">
         We use cookies to analyze website traffic and optimize your website experience. By accepting our use of
         cookies, your data will be aggregated with all other user data.{' '}
         <Link to="/cookie-policy" className="text-fg underline underline-offset-4">
           Cookie Policy
         </Link>
       </p>
-      <div className="mt-6 flex flex-wrap items-center gap-3">
+      <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 sm:mt-6">
         <button type="button" onClick={acceptAll} className={pillPrimary}>
           Accept
         </button>
         <button type="button" onClick={necessaryOnly} className={pillOutline}>
           Necessary only
         </button>
-        <button type="button" onClick={openPreferences} className="link-underline px-2 py-3 text-sm font-medium text-fg">
+        <button type="button" onClick={openPreferences} className="px-2 py-3 text-sm font-medium text-fg underline underline-offset-4">
           Manage preferences
         </button>
       </div>
