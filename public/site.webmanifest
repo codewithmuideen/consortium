@@ -1,0 +1,13 @@
+{
+  "name": "SolGenix Consortium",
+  "short_name": "Consortium",
+  "description": "Power generation, distribution, and tech solutions.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#040824",
+  "theme_color": "#040824",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

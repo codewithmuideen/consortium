@@ -1,0 +1,7 @@
+# SolGenix Consortium crawler policy
+User-agent: *
+Allow: /
+# Reserved for the phase-2 admin CMS
+Disallow: /admin
+
+Sitemap: https://sgconsortium.com/sitemap.xml

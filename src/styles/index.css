@@ -1,0 +1,223 @@
+@import "tailwindcss";
+@import "@fontsource-variable/sora";
+@import "@fontsource-variable/inter";
+
+/* ------------------------------------------------------------------
+   Design tokens. The palette is sampled from the SolGenix Consortium
+   logo: navy wordmark, amber → orange → coral sun, copper "CONSORTIUM".
+------------------------------------------------------------------- */
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Sora Variable", "Inter Variable", ui-sans-serif, sans-serif;
+
+  --color-ink-950: #02051a;
+  --color-ink-900: #040824;
+  --color-ink-800: #080e36;
+  --color-ink-700: #0d1650;
+  --color-navy: #030e52;
+  --color-amber: #f6b92a;
+  --color-sun: #f49c3a;
+  --color-coral: #f45c4e;
+  --color-copper: #c57942;
+  --color-paper: #f6f3ec;
+  --color-paper-2: #ebe6da;
+
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-lift: 0 40px 80px -40px rgb(2 5 26 / 0.55);
+  --breakpoint-3xl: 120rem;
+
+  --animate-flow: flow 1.6s linear infinite;
+  --animate-node: node-pulse 3.2s ease-in-out infinite;
+  --animate-float: float 9s ease-in-out infinite;
+  --animate-cue: cue 2.2s var(--ease-expo) infinite;
+
+  @keyframes flow {
+    to { stroke-dashoffset: -28; }
+  }
+  @keyframes node-pulse {
+    0%, 100% { opacity: 0.35; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.5); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+  }
+  @keyframes cue {
+    0% { transform: translateY(-100%); }
+    60%, 100% { transform: translateY(100%); }
+  }
+}
+
+/* Tone-aware colours: sections set the variables, components read them. */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-surface: var(--surface);
+  --color-accent: var(--accent);
+}
+
+:root {
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+  --container: 90rem;
+  --section-y: clamp(5rem, 10vw, 10rem);
+  --nav-h: 5.5rem;
+  --dur-micro: 200ms;
+  --dur-reveal: 700ms;
+  --z-nav: 50;
+  --z-overlay: 60;
+  --z-loader: 100;
+
+  --bg: #040824;
+  --fg: #f4f1ea;
+  --muted: #a3aac6;
+  --line: rgb(255 255 255 / 0.13);
+  --surface: rgb(255 255 255 / 0.04);
+  --accent: #f6b92a;
+}
+
+@media (min-width: 64rem) {
+  :root { --nav-h: 6.75rem; }
+}
+
+/* In the components layer so utilities (bg-transparent, bg-ink-900/80…) can override. */
+@layer components {
+  .tone-dark,
+  .tone-ink,
+  .tone-navy,
+  .tone-light,
+  .tone-accent {
+    background-color: var(--bg);
+    color: var(--fg);
+  }
+  .tone-dark {
+    --bg: #040824; --fg: #f4f1ea; --muted: #a3aac6;
+    --line: rgb(255 255 255 / 0.13); --surface: rgb(255 255 255 / 0.04); --accent: #f6b92a;
+  }
+  .tone-ink {
+    --bg: #02051a; --fg: #f4f1ea; --muted: #a3aac6;
+    --line: rgb(255 255 255 / 0.12); --surface: rgb(255 255 255 / 0.04); --accent: #f6b92a;
+  }
+  .tone-navy {
+    --bg: #030e52; --fg: #f4f1ea; --muted: #b9c0e2;
+    --line: rgb(255 255 255 / 0.16); --surface: rgb(255 255 255 / 0.05); --accent: #f6b92a;
+  }
+  .tone-light {
+    --bg: #f6f3ec; --fg: #060a26; --muted: #535974;
+    --line: rgb(6 10 38 / 0.14); --surface: #ffffff; --accent: #a4531a;
+  }
+  .tone-accent {
+    --bg: #f6b92a; --fg: #060a26; --muted: rgb(6 10 38 / 0.78);
+    --line: rgb(6 10 38 / 0.22); --surface: rgb(255 255 255 / 0.22); --accent: #060a26;
+    background-image: linear-gradient(115deg, #f6b92a 0%, #f49c3a 60%, #f2804a 100%);
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-ink-900);
+    color: var(--fg);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+  ::selection { background: var(--color-amber); color: var(--color-ink-950); }
+  :focus-visible {
+    outline: 2px solid var(--color-amber);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  .tone-light :focus-visible,
+  .tone-accent :focus-visible { outline-color: var(--color-navy); }
+  button { cursor: pointer; }
+}
+
+@utility container-x {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+@utility section-y {
+  padding-block: var(--section-y);
+}
+@utility eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+@utility display-1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 7.4vw, 7.25rem);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+@utility display-2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.7vw, 4.25rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.032em;
+}
+@utility display-3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+@utility lead {
+  font-size: clamp(1.05rem, 1.25vw, 1.3rem);
+  line-height: 1.6;
+}
+@utility bg-sunrise {
+  background-image: linear-gradient(100deg, #f6b92a 0%, #f49c3a 55%, #f45c4e 100%);
+}
+@utility text-sunrise {
+  background-image: linear-gradient(100deg, #f6b92a 0%, #f49c3a 55%, #f45c4e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility grid-lines {
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 5rem 5rem;
+}
+@utility link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size 0.4s var(--ease-expo);
+  &:hover, &:focus-visible { background-size: 100% 1px; }
+}
+
+/* Dashed "energy" lines used by the diagrams. */
+.flow-line {
+  stroke-dasharray: 4 10;
+  animation: var(--animate-flow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
