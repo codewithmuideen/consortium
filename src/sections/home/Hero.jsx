@@ -38,7 +38,7 @@ export function Hero() {
       <motion.section
         ref={ref}
         style={{ scale, borderRadius: radius }}
-        className="tone-ink relative isolate flex min-h-svh origin-bottom items-end overflow-hidden"
+        className="tone-ink relative isolate flex min-h-[88svh] origin-bottom items-end overflow-hidden sm:min-h-svh"
       >
         <motion.div style={{ scale: mediaScale }} className="absolute inset-0 -z-20">
           <VideoBackground poster={heroPoster} sources={SOURCES} priority />
@@ -52,7 +52,7 @@ export function Hero() {
 
         <motion.div
           style={{ y: contentY, opacity: contentOpacity }}
-          className="container-x w-full pt-[calc(var(--nav-h)+3rem)] pb-8 lg:pb-10"
+          className="container-x w-full pt-[calc(var(--nav-h)+2rem)] pb-10 sm:pt-[calc(var(--nav-h)+3rem)] sm:pb-8 lg:pb-10"
         >
           <motion.p {...fadeUp(0)} className="eyebrow flex items-center gap-3 text-amber">
             <span aria-hidden="true" className="h-px w-8 shrink-0 bg-current" />
@@ -68,13 +68,13 @@ export function Hero() {
             className="display-1 mt-7 max-w-[13ch]"
           />
 
-          <div className="mt-9 grid gap-9 lg:grid-cols-12 lg:items-end">
+          <div className="mt-7 grid gap-7 sm:mt-9 sm:gap-9 lg:grid-cols-12 lg:items-end">
             <motion.p {...fadeUp(0.55)} className="lead max-w-[46ch] text-white/85 lg:col-span-6">
               {hero.description}
             </motion.p>
             <motion.div {...fadeUp(0.7)} className="flex flex-wrap items-center gap-4 lg:col-span-6 lg:justify-end">
               <Magnetic>
-                <Button to={hero.primaryCta.to}>{hero.primaryCta.label}</Button>
+                <Button href={hero.primaryCta.href}>{hero.primaryCta.label}</Button>
               </Magnetic>
               <Button to={hero.secondaryCta.to} variant="secondary" className="backdrop-blur-sm [--line:rgb(255_255_255/0.4)]">
                 {hero.secondaryCta.label}
@@ -84,7 +84,7 @@ export function Hero() {
 
           <motion.div
             {...fadeUp(0.9)}
-            className="mt-14 flex items-center justify-between gap-6 border-t border-white/15 pt-6 lg:mt-20"
+            className="mt-14 hidden items-center justify-between gap-6 border-t border-white/15 pt-6 sm:flex lg:mt-20"
           >
             <a href="#intro" className="group flex items-center gap-4 text-xs font-medium tracking-[0.2em] text-white/75 uppercase hover:text-white">
               <span aria-hidden="true" className="relative block h-10 w-px overflow-hidden bg-white/25">
@@ -92,7 +92,7 @@ export function Hero() {
               </span>
               Scroll
             </a>
-            <ul aria-label="What we work on" className="hidden items-center gap-8 text-xs font-medium tracking-[0.2em] text-white/75 uppercase sm:flex">
+            <ul aria-label="What we work on" className="flex items-center gap-8 text-xs font-medium tracking-[0.2em] text-white/75 uppercase">
               {hero.ledger.map((entry, index) => (
                 <li key={entry} className="flex items-center gap-3">
                   <span className="text-amber">{String(index + 1).padStart(2, '0')}</span>

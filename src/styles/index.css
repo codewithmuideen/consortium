@@ -207,6 +207,11 @@
   &:hover, &:focus-visible { background-size: 100% 1px; }
 }
 
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
 /* Dashed "energy" lines used by the diagrams. */
 .flow-line {
   stroke-dasharray: 4 10;

@@ -1,13 +1,7 @@
-/** Maps to the future Supabase `navigation` table. */
-export const primaryNav = [
-  { label: 'About', to: '/about', order: 1, enabled: true },
-  { label: 'Solutions', to: '/solutions', order: 2, enabled: true },
-  { label: 'Power & Grid', to: '/power-generation', order: 3, enabled: true },
-  { label: 'Technology', to: '/technology', order: 4, enabled: true },
-  { label: 'Projects', to: '/projects', order: 5, enabled: true },
-  { label: 'Insights', to: '/insights', order: 6, enabled: true },
-  { label: 'Contact', to: '/contact', order: 7, enabled: true },
-]
+import { activeModules } from './modules.js'
+
+/** Header links: one per module, generated from `data/modules.js`. */
+export const primaryNav = activeModules.filter((module) => module.nav)
 
 export const navCta = { label: 'Talk to Consortium', to: '/contact' }
 

@@ -1,13 +1,10 @@
-import { gridPaths } from '../data/grid.js'
-import { usePageMeta } from '../hooks/usePageMeta.js'
-import { PageHero } from '../components/ui/PageHero.jsx'
-import { RevealGroup, RevealItem } from '../components/ui/Reveal.jsx'
-import { Section } from '../components/ui/Section.jsx'
-import { SectionHeading } from '../components/ui/SectionHeading.jsx'
-import { CTASection } from '../sections/shared/CTASection.jsx'
-import { PillarPanel } from '../sections/shared/Pillars.jsx'
-import { PowerGeneration } from '../sections/shared/PowerGeneration.jsx'
-import { Sustainability } from '../sections/shared/Sustainability.jsx'
+import { gridPaths } from '../../data/grid.js'
+import { RevealGroup, RevealItem } from '../../components/ui/Reveal.jsx'
+import { Section } from '../../components/ui/Section.jsx'
+import { SectionHeading } from '../../components/ui/SectionHeading.jsx'
+import { PillarPanel } from '../../sections/shared/Pillars.jsx'
+import { PowerGeneration } from '../../sections/shared/PowerGeneration.jsx'
+import { Sustainability } from '../../sections/shared/Sustainability.jsx'
 
 const heading = {
   eyebrow: 'The power chain',
@@ -16,16 +13,10 @@ const heading = {
     'Reliable electricity depends on generation, protection, network and delivery working together. We plan them together from the start.',
 }
 
-export default function PowerGenerationPage() {
-  usePageMeta('power')
+/** Power Generation module: the power chain, the two routes to power, and sustainability. */
+export default function PowerModule() {
   return (
     <>
-      <PageHero
-        eyebrow="Power generation"
-        title="From generation to grid."
-        description="Generation assets and the infrastructure around them, from localised mini-grids to interconnection with larger networks."
-        image="solarField"
-      />
       <PowerGeneration heading={heading} />
 
       <Section tone="dark">
@@ -44,7 +35,6 @@ export default function PowerGenerationPage() {
       </Section>
 
       <Sustainability />
-      <CTASection />
     </>
   )
 }

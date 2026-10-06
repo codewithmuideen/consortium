@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'motion/react'
 import { X } from 'lucide-react'
 import { navCta } from '../../data/navigation.js'
@@ -8,6 +8,7 @@ import { EASE } from '../../lib/motion.js'
 import { cn } from '../../lib/cn.js'
 import { Button } from '../ui/Button.jsx'
 import { Logo } from '../ui/Logo.jsx'
+import { ModuleLink } from '../modules/ModuleLink.jsx'
 
 const panel = {
   hidden: { clipPath: 'inset(0 0 100% 0)' },
@@ -21,10 +22,12 @@ const item = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
 }
 
-/** Full-height overlay navigation for screens below the desktop breakpoint. */
-export function MobileMenu({ open, onClose, links }) {
+const linkClasses =
+  'flex items-baseline gap-5 py-3.5 font-display text-[clamp(1.5rem,6.4vw,2.25rem)] font-medium tracking-tight transition-colors duration-200'
+
+/** Full-height overlay navigation for screens below the desktop breakpoint: the overview plus every module. */
+export function MobileMenu({ open, onClose, modules, openModule }) {
   const ref = useDialog(open, onClose)
-  const allLinks = [{ label: 'Home', to: '/' }, ...links]
 
   return (
     <AnimatePresence>
@@ -56,26 +59,30 @@ export function MobileMenu({ open, onClose, links }) {
 
           <nav aria-label="Mobile" className="container-x relative flex-1 py-8">
             <motion.ul variants={list} initial="hidden" animate="visible" className="flex flex-col">
-              {allLinks.map((link, index) => (
-                <motion.li key={link.to} variants={item} className="border-b border-line">
-                  <NavLink
-                    to={link.to}
-                    end
-                    onClick={onClose}
-                    className={({ isActive }) =>
-                      cn(
-                        'flex items-baseline gap-5 py-4 font-display text-[clamp(1.6rem,7vw,2.5rem)] font-medium tracking-tight transition-colors duration-200',
-                        isActive ? 'text-amber' : 'text-fg hover:text-amber',
-                      )
-                    }
-                  >
-                    <span className="w-6 font-sans text-xs font-medium tracking-widest text-muted">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    {link.label}
-                  </NavLink>
-                </motion.li>
-              ))}
+              <motion.li variants={item} className="border-b border-line">
+                <Link to="/" onClick={onClose} className={cn(linkClasses, openModule ? 'text-fg hover:text-amber' : 'text-amber')}>
+                  <span className="w-6 font-sans text-xs font-medium tracking-widest text-muted">00</span>
+                  Overview
+                </Link>
+              </motion.li>
+              {modules.map((module, index) => {
+                const isActive = module.id === openModule?.id
+                return (
+                  <motion.li key={module.id} variants={item} className="border-b border-line">
+                    <ModuleLink
+                      module={module}
+                      active={isActive}
+                      onClick={onClose}
+                      className={cn(linkClasses, isActive ? 'text-amber' : 'text-fg hover:text-amber')}
+                    >
+                      <span className="w-6 font-sans text-xs font-medium tracking-widest text-muted">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                      {module.title}
+                    </ModuleLink>
+                  </motion.li>
+                )
+              })}
             </motion.ul>
           </nav>
 

@@ -29,7 +29,7 @@ export async function getSiteSettings() {
 }
 
 export async function getNavigation() {
-  return { primary: published(primaryNav), footer: footerNav, legal: legalNav }
+  return { primary: primaryNav, footer: footerNav, legal: legalNav }
 }
 
 export async function getPageSections(slug) {

@@ -3,7 +3,7 @@ import { CircleAlert, CircleCheck, LoaderCircle } from 'lucide-react'
 import { emptyContactMessage, submitContactMessage, validateContactMessage } from '../../services/contactService.js'
 import { isEmailLive } from '../../services/emailService.js'
 import { cn } from '../../lib/cn.js'
-import { Button } from '../ui/Button.jsx'
+import { Button } from '../../components/ui/Button.jsx'
 
 const FIELDS = [
   { name: 'name', label: 'Full name', type: 'text', autoComplete: 'name', required: true },

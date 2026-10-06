@@ -1,20 +1,21 @@
 import { useCallback, useEffect, useState } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { motion } from 'motion/react'
 import { Menu } from 'lucide-react'
+import { activeModules, moduleForPath } from '../../data/modules.js'
 import { navCta, primaryNav } from '../../data/navigation.js'
 import { useScrolled } from '../../hooks/useScrolled.js'
 import { cn } from '../../lib/cn.js'
+import { ModuleLink } from '../modules/ModuleLink.jsx'
 import { Button } from '../ui/Button.jsx'
 import { Logo } from '../ui/Logo.jsx'
 import { MobileMenu } from './MobileMenu.jsx'
-
-const links = primaryNav.filter((item) => item.enabled).sort((a, b) => a.order - b.order)
 
 export function Navbar() {
   const scrolled = useScrolled()
   const { pathname } = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
+  const openModule = moduleForPath(pathname)
   const closeMenu = useCallback(() => setMenuOpen(false), [])
 
   useEffect(() => {
@@ -25,8 +26,8 @@ export function Navbar() {
     <>
       <header
         className={cn(
-          'tone-dark fixed inset-x-0 top-0 z-(--z-nav) border-b bg-transparent transition-[background-color,border-color,backdrop-filter] duration-500',
-          scrolled ? 'border-white/10 bg-ink-900/80 backdrop-blur-xl' : 'border-transparent',
+          'fixed inset-x-0 top-0 z-(--z-nav) border-b text-white transition-[background-color,border-color] duration-300',
+          scrolled ? 'border-white/10 bg-ink-900/90 backdrop-blur-xl' : 'border-transparent bg-transparent',
         )}
       >
         <div className="container-x flex h-(--nav-h) items-center justify-between gap-6">
@@ -34,33 +35,31 @@ export function Navbar() {
 
           <nav aria-label="Primary" className="hidden xl:block">
             <ul className="flex items-center gap-1">
-              {links.map((item) => (
-                <li key={item.to}>
-                  <NavLink
-                    to={item.to}
-                    className={({ isActive }) =>
-                      cn(
-                        'relative block px-3.5 py-2 text-sm font-medium transition-colors duration-200',
+              {primaryNav.map((module) => {
+                const isActive = module.id === openModule?.id
+                return (
+                  <li key={module.id}>
+                    <ModuleLink
+                      module={module}
+                      active={isActive}
+                      className={cn(
+                        'relative block px-3 py-2 text-sm font-medium transition-colors duration-200',
                         isActive ? 'text-white' : 'text-white/70 hover:text-white',
-                      )
-                    }
-                  >
-                    {({ isActive }) => (
-                      <>
-                        {item.label}
-                        {isActive && (
-                          <motion.span
-                            layoutId="nav-active"
-                            aria-hidden="true"
-                            className="absolute inset-x-3.5 -bottom-0.5 h-px bg-sunrise"
-                            transition={{ type: 'spring', stiffness: 380, damping: 32 }}
-                          />
-                        )}
-                      </>
-                    )}
-                  </NavLink>
-                </li>
-              ))}
+                      )}
+                    >
+                      {module.label}
+                      {isActive && (
+                        <motion.span
+                          layoutId="nav-active"
+                          aria-hidden="true"
+                          className="absolute inset-x-3 -bottom-0.5 h-px bg-sunrise"
+                          transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                        />
+                      )}
+                    </ModuleLink>
+                  </li>
+                )
+              })}
             </ul>
           </nav>
 
@@ -82,7 +81,7 @@ export function Navbar() {
         </div>
       </header>
 
-      <MobileMenu open={menuOpen} onClose={closeMenu} links={links} />
+      <MobileMenu open={menuOpen} onClose={closeMenu} modules={activeModules} openModule={openModule} />
     </>
   )
 }

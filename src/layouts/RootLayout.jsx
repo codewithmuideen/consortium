@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { motion } from 'motion/react'
+import { isPlatformPath } from '../data/modules.js'
 import { CookieBanner } from '../components/layout/CookieBanner.jsx'
 import { Footer } from '../components/layout/Footer.jsx'
 import { LoadingScreen } from '../components/layout/LoadingScreen.jsx'
@@ -10,6 +11,8 @@ import { BackToTop, ScrollProgress, ScrollToTop } from '../components/layout/Scr
 /** Shell shared by every route: chrome, page transition, footer and overlays. */
 export function RootLayout() {
   const { pathname } = useLocation()
+  // The landing page keeps one key across all module URLs, so switching modules never remounts it.
+  const pageKey = isPlatformPath(pathname) ? 'platform' : pathname
 
   return (
     <>
@@ -26,7 +29,7 @@ export function RootLayout() {
 
       <motion.main
         id="main"
-        key={pathname}
+        key={pageKey}
         tabIndex={-1}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

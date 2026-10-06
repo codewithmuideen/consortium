@@ -1,21 +1,22 @@
 /**
- * Homepage content. Maps to the future Supabase `pages` + `sections` tables:
+ * Landing page content. Maps to the future Supabase `pages` + `sections` tables:
  * each block carries `enabled` and `order` so an admin can hide or reorder it.
  * `image` values are keys of `data/images.js`; `icon` values are keys of `lib/icons.js`.
  */
 export const homeSections = [
   { id: 'hero', enabled: true, order: 1 },
   { id: 'intro', enabled: true, order: 2 },
-  { id: 'pillars', enabled: true, order: 3 },
-  { id: 'power', enabled: true, order: 4 },
-  { id: 'miniGrid', enabled: true, order: 5 },
-  { id: 'interconnected', enabled: true, order: 6 },
-  { id: 'solutions', enabled: true, order: 7 },
-  { id: 'technology', enabled: true, order: 8 },
-  { id: 'impact', enabled: true, order: 9 },
-  { id: 'why', enabled: true, order: 10 },
-  { id: 'cta', enabled: true, order: 11 },
+  // The module selector and the active module panel (see data/modules.js).
+  { id: 'modules', enabled: true, order: 3 },
+  { id: 'cta', enabled: true, order: 4 },
 ]
+
+export const moduleHub = {
+  eyebrow: 'The platform',
+  title: 'One consortium. Choose where to begin.',
+  description:
+    'Each area of our work is a module. Select one to open it below, and switch to another at any time.',
+}
 
 export const hero = {
   // The descriptor printed on the company logo.
@@ -23,7 +24,7 @@ export const hero = {
   title: 'Technology that powers progress.',
   description:
     'SolGenix Consortium brings technology, engineering and energy infrastructure together, developing mini-grids and interconnected-grid power systems built for what comes next.',
-  primaryCta: { label: 'Explore our solutions', to: '/solutions' },
+  primaryCta: { label: 'Explore the platform', href: '#modules' },
   secondaryCta: { label: 'Talk to Consortium', to: '/contact' },
   ledger: ['Power', 'Grid', 'Technology', 'Infrastructure'],
 }

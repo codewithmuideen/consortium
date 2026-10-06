@@ -44,7 +44,7 @@ export function Intro() {
         </div>
       </div>
 
-      <RevealGroup as="ol" stagger={0.1} className="mt-20 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:mt-28 lg:grid-cols-4">
+      <RevealGroup as="ol" stagger={0.1} className="mt-14 grid grid-cols-2 gap-x-5 gap-y-8 sm:gap-x-8 sm:gap-y-10 lg:mt-28 lg:grid-cols-4">
         {intro.index.map((entry) => (
           <RevealItem
             as="li"
@@ -54,8 +54,8 @@ export function Intro() {
             <p className="font-display text-sm font-medium tracking-widest text-accent transition-transform duration-300 group-hover:translate-x-1">
               {entry.number}
             </p>
-            <h3 className="mt-6 font-display text-2xl font-semibold tracking-tight lg:text-3xl">{entry.title}</h3>
-            <p className="mt-3 max-w-[30ch] leading-relaxed text-muted">{entry.text}</p>
+            <h3 className="mt-4 font-display text-xl font-semibold tracking-tight sm:mt-6 sm:text-2xl lg:text-3xl">{entry.title}</h3>
+            <p className="mt-2.5 max-w-[30ch] text-[0.9375rem] leading-relaxed text-muted sm:mt-3 sm:text-base">{entry.text}</p>
           </RevealItem>
         ))}
       </RevealGroup>

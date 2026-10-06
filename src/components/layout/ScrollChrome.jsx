@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { AnimatePresence, motion, useScroll, useSpring } from 'motion/react'
 import { ArrowUp } from 'lucide-react'
+import { moduleForPath } from '../../data/modules.js'
 import { useScrolled } from '../../hooks/useScrolled.js'
 
 /** Thin reading-progress bar pinned to the top of the viewport. */
@@ -39,10 +40,11 @@ export function BackToTop() {
   )
 }
 
-/** Returns to the top of the page on every route change. */
+/** Returns to the top on route changes. Module URLs are left to the landing page, which scrolls to the panel. */
 export function ScrollToTop() {
   const { pathname } = useLocation()
   useEffect(() => {
+    if (moduleForPath(pathname)) return
     window.scrollTo({ top: 0, behavior: 'instant' })
   }, [pathname])
   return null
